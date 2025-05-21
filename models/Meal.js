@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 const mealSchema = new mongoose.Schema({
     mealname: {
         type: String,
-        required: true,
+        required: [true, "Du måste skicka med måltidens namn"],
         trim: true
     },
     ingredients: {
         type: [String],
-        required: true
+        required: [true, "Du måste skicka med måltidens ingredienser"],
     },
     category: {
         type: String,
-        required: true,
+        required: [true, "Du måste skicka med måltidens kategori"],
         trim: true
     },
     created: {
