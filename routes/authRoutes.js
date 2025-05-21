@@ -29,7 +29,7 @@ router.get("/meals", async (req, res) => {
 })
 
 //GET starters
-/* router.get("/starters", async (req, res) => {
+router.get("/starters", async (req, res) => {
     try{
         const allMeals = await Meal.find({ category: "Förrätt" });
         res.json(allMeals);
@@ -56,7 +56,7 @@ router.get("/desserts", async (req, res) => {
     } catch(err) {
         return res.status(500).json({ message: "Fel vid hämtning av alla efterrätter..."})
     }
-}) */
+})
 
 //POST
 router.post("/meals", async (req, res) => {
