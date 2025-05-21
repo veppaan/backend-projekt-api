@@ -49,7 +49,7 @@ router.get("/main-courses", async (req, res) => {
 })
 
 //GET desserts
-router.get("/starters", async (req, res) => {
+router.get("/desserts", async (req, res) => {
     try{
         const allMeals = await Meal.find({ category: "Efterrätt" });
         res.json(allMeals);
