@@ -10,11 +10,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //Routes
-app.use("/api", authRoutes);
 
 app.get("/", (req, res) => {
-    res.json({message: "Välkommen till detta API! För att hämta alla måltider, skriv /api/meals"})
+    res.json({message: "hello"});
 })
+
+app.use("/api", authRoutes);
 
 //Starta appikation
 app.listen(port, () => {
