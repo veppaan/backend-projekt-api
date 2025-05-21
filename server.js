@@ -12,6 +12,10 @@ app.use(cors());
 //Routes
 app.use("/api", authRoutes);
 
+app.get("/", (req, res) => {
+    res.json({message: "Välkommen till Voff-truck:ens API"});
+})
+
 //Starta appikation
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
