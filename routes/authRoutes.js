@@ -29,5 +29,22 @@ router.get("/meals", async (req, res) => {
     res.json({ message: "Välkommen till API:et" });
 })
 
+router.post("/meals", async (req, res) => {
+    try{
+        const {mealname, ingredients, category} = req.body;
+
+        //Validera input
+        if(!mealname || !ingredients || !category){
+            return res.status(400).json({ error: "Ogiltig input, skicka med namn, ingredienser och kategori!" });
+        }
+        //Korrekt input - spara måltid
+        const meal = new Meal({ mealname, ingredients, category });
+        await meal.save();
+        res.status(201).json({ message: "Måltid sparad!" });
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+})
+
 //Returnera till anropet
 module.exports = router;
