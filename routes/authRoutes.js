@@ -40,7 +40,7 @@ router.post("/meals", async (req, res) => {
         //Korrekt input - spara måltid
         const meal = new Meal({ mealname, ingredients, category });
         await meal.save();
-        res.status(201).json({ message: "Måltid sparad!" + meal});
+        res.status(201).json({ message: "Måltid sparad: " + meal.mealname});
     } catch (error) {
         res.status(500).json({ error: "Server error" });
     }
@@ -56,11 +56,23 @@ router.delete("/meals/:id", async(req, res) => {
         }
         //Ta bort måltiden
         await Meal.findByIdAndDelete(req.params.id, req.body, {new: true});
-
+        //Skriv ut meddelande
         res.json({message: "Måltid raderad: " + deleteMeal.mealname });
     } catch(error){
         //Serverfel
         res.status(500).json(error);
+    }
+})
+//UPDATE
+router.put("/meals/:id", async(req, res) => {
+    try{
+        //Uppdatera
+        const updatedMeal = await Meal.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        //Skriv ut meddelande
+        res.json({ message: "Måltid uppdaterad: " + updatedMeal.mealname });
+    } catch(error){
+        //Serverfel
+        return res.status(500).json(error);
     }
 })
 
