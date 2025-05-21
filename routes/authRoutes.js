@@ -26,7 +26,6 @@ router.get("/meals", async (req, res) => {
     } catch(err) {
         return res.status(500).json({ message: "Fel vid hämtning av alla måltider..."})
     }
-    res.json({ message: "Välkommen till API:et" });
 })
 
 //GET starters
@@ -37,7 +36,6 @@ router.get("/starters", async (req, res) => {
     } catch(err) {
         return res.status(500).json({ message: "Fel vid hämtning av alla förrätter..."})
     }
-    res.json({ message: "Välkommen till API:et" });
 })
 
 //GET main courses
@@ -48,7 +46,6 @@ router.get("/main-courses", async (req, res) => {
     } catch(err) {
         return res.status(500).json({ message: "Fel vid hämtning av alla huvudrätter..."})
     }
-    res.json({ message: "Välkommen till API:et" });
 })
 
 //GET desserts
@@ -59,7 +56,6 @@ router.get("/starters", async (req, res) => {
     } catch(err) {
         return res.status(500).json({ message: "Fel vid hämtning av alla efterrätter..."})
     }
-    res.json({ message: "Välkommen till API:et" });
 })
 
 //POST
