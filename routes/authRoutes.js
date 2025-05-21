@@ -21,14 +21,14 @@ router.get("/", (req, res) => {
 
 router.get("/meals", async (req, res) => {
     try{
-        const allMeals = await Meal.find();
+        const allMeals = await Meal.find({});
         res.json(allMeals);
     } catch(err) {
-        res.status(500).json({ message: "Fel vid hämtning av alla måltider..."})
+        return res.status(500).json({ message: "Fel vid hämtning av alla måltider..."})
     }
     res.json({ message: "Välkommen till API:et" });
 })
-
+//POST
 router.post("/meals", async (req, res) => {
     try{
         const {mealname, ingredients, category} = req.body;
@@ -40,9 +40,27 @@ router.post("/meals", async (req, res) => {
         //Korrekt input - spara måltid
         const meal = new Meal({ mealname, ingredients, category });
         await meal.save();
-        res.status(201).json({ message: "Måltid sparad!" });
+        res.status(201).json({ message: "Måltid sparad!" + meal});
     } catch (error) {
         res.status(500).json({ error: "Server error" });
+    }
+})
+//DELETE
+router.delete("/meals/:id", async(req, res) => {
+    try{
+        //För att kunna få ut namnet till utskriften
+        const deleteMeal = await Meal.findById(req.params.id);
+        //Kollar om måltiden finns med i databas
+        if(!deleteMeal){
+            return res.status(404).json({message: "Måltiden finns inte i databasen"});
+        }
+        //Ta bort måltiden
+        await Meal.findByIdAndDelete(req.params.id, req.body, {new: true});
+
+        res.json({message: "Måltid raderad: " + deleteMeal.mealname });
+    } catch(error){
+        //Serverfel
+        res.status(500).json(error);
     }
 })
 
