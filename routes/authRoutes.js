@@ -105,6 +105,17 @@ router.put("/meals/:id", async(req, res) => {
         return res.status(500).json(error);
     }
 })
+router.get("/meals/:id", async(req, res) => {
+    try{
+        //Hitta
+        const foundMeal = await Meal.findById(req.params.id);
+        //Skriv ut meddelande
+        res.json({ message: "Måltid hittad: " + foundMeal.mealname });
+    } catch(error){
+        //Serverfel
+        return res.status(500).json(error);
+    }
+})
 
 //Returnera till anropet
 module.exports = router;
