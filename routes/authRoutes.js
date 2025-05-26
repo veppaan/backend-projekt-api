@@ -110,7 +110,7 @@ router.get("/meals/:id", async(req, res) => {
         //Hitta
         const foundMeal = await Meal.findById(req.params.id);
         //Skriv ut meddelande
-        res.json({ message: "Måltid hittad: " + foundMeal.mealname });
+        res.json({ message: "Måltid hittad: " + foundMeal });
     } catch(error){
         //Serverfel
         return res.status(500).json(error);
