@@ -109,8 +109,13 @@ router.get("/meals/:id", async(req, res) => {
     try{
         //Hitta
         const foundMeal = await Meal.findById(req.params.id);
+        const foundedMeal = {
+            mealname: foundMeal.mealname,
+            ingredients: foundMeal.ingredients,
+            category: foundMeal.category
+        }
         //Skriv ut meddelande
-        res.json({ message: foundMeal.mealname +  foundMeal.ingredients + foundMeal.category});
+        res.json({ message: foundedMeal});
     } catch(error){
         //Serverfel
         return res.status(500).json(error);
