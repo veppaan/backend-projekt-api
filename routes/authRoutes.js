@@ -93,6 +93,7 @@ router.delete("/meals/:id", async(req, res) => {
         res.status(500).json(error);
     }
 })
+
 //UPDATE
 router.put("/meals/:id", async(req, res) => {
     try{
