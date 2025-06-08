@@ -24,7 +24,7 @@ Användning:
 |GET| "/desserts" | Hämta alla efterrätter |
 |GET | "/meals/:id" | Hämtar en specifik måltid med angivet id|
 |POST | "/meals" | Lägger till en måltid|
-|PUT | "/meals/:id" | Uppdaterar en måltid|
+|PUT | "/meals/:id" | Uppdaterar en måltid med angivet id|
 |DELETE | "/meals/:id" | Radera en måltid med angivet id|
 
 Måltidens JSON-struktur kan se ut såhär:
