@@ -14,6 +14,22 @@ mongoose.connect(process.env.DATABASE).then(() => {
 //Meal model
 const Meal = require("../models/Meal");
 
+//Token-validator as middleware
+function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    //Token
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if(token == null) res.status(401).json({ message: "You are not authorized for this route - missing token!" });
+
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, username) => {
+        if(err) return res.status(403).json({ message: "Invalid JWT" });
+
+        req.username = username;
+        next();
+    })
+}
+
 //GET
 router.get("/", (req, res) => {
     res.json({ message: "Välkommen till API:et" });
@@ -59,7 +75,7 @@ router.get("/desserts", async (req, res) => {
 })
 
 //POST
-router.post("/meals", async (req, res) => {
+router.post("/meals", authenticateToken, async (req, res) => {
     try{
         const {mealname, ingredients, category} = req.body;
 
@@ -76,7 +92,7 @@ router.post("/meals", async (req, res) => {
     }
 })
 //DELETE
-router.delete("/meals/:id", async(req, res) => {
+router.delete("/meals/:id", authenticateToken, async(req, res) => {
     try{
         //För att kunna få ut namnet till utskriften
         const deleteMeal = await Meal.findById(req.params.id);
@@ -95,7 +111,7 @@ router.delete("/meals/:id", async(req, res) => {
 })
 
 //UPDATE
-router.put("/meals/:id", async(req, res) => {
+router.put("/meals/:id", authenticateToken, async(req, res) => {
     try{
         //Uppdatera
         const updatedMeal = await Meal.findByIdAndUpdate(req.params.id, req.body, {new: true});
