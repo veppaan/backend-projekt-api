@@ -84,6 +84,9 @@ router.post("/meals", authenticateToken, async (req, res) => {
         if(!mealname || !ingredients || !category){
             return res.status(400).json({ error: "Ogiltig input, skicka med namn, ingredienser och kategori!" });
         }
+        if(category !== "Förrätt" && category !== "Huvudrätt" && category !== "Efterrätt"){
+            return res.status(400).json({ error: "Endast Förrätt, Huvudrätt och Efterrätt är giltiga kategorier!" });
+        }
         //Korrekt input - spara måltid
         const meal = new Meal({ mealname, ingredients, category });
         await meal.save();
